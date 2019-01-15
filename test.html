@@ -8,7 +8,8 @@
 
             background: #FFF;
             color: #111;
-            font-family: Arial, Helvetica, sans-serif;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            /* font-family: Arial, Helvetica, sans-serif; */
         }
 
         .calendar {
@@ -26,7 +27,7 @@
             /* border: 1px solid #c8c8c8; */
             border-radius: 5px;
             width: 100px;
-            height: 90px;
+            height: 75px;
             /*text-align: center;*/
             cursor: pointer;
             vertical-align: top;
@@ -94,32 +95,33 @@
         }
 
         .calendar p.ndia {
-            font-size: 10pt;
-            border-bottom: 1px solid black;
-            border-right: 1px solid black;
+
+            font-size: 9pt;
+            border-bottom: 1px solid rgba(0,0,0,0.8);
+            border-right: 1px solid rgba(0,0,0,0.8);
             border-radius: 5px;
             font-weight: bold;
             width: 20px;
             height: 16px;
-            /* float: left; */
-            margin: 2px;
-            padding: 0 3px 3px 0;
+            float: left;
+            margin: 1px 3px 3px 1px;
+            padding: 0 2px 3px 0;
             text-align: center;
             background: rgba(255, 255, 255, 0.1);
 
         }
 
         .calendar p.texto {
-
-            font-size: 11pt;
+            /* display: block; */
+            font-size: 10pt;
             /* float:right; */
             text-align: right;
 
             /* width: 80px; */
             /* height: 60px; */
-            margin: 3px;
+
+            margin: 2px;
             padding: 2px;
-            /* padding: 3px; */
 
         }
 
@@ -520,13 +522,13 @@
 
             // NUEVO TIPO
             textList = new Array();
-            textList[0] = "";
-            textList[1] = "Despliegue TEST (12:00)";
-            textList[2] = "IOP de VDC + CCF + BPI (18:00)";
+            textList[0] =  "";
+            textList[1] =  "Despliegue TEST (12:00)";
+            textList[2] =  "IOP de VDC + CCF + BPI (18:00)";
             textList[21] = "IOP de BPI (18:00)";
             textList[22] = "IOP de VDC + CCF (18:00)";
-            textList[3] = "Festivo";
-            textList[4] = "Periodo crítico";
+            textList[3] =  "Festivo";
+            textList[4] =  "Periodo crítico";
 
 
             var cellArray = new Array();
