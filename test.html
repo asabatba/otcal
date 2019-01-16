@@ -461,31 +461,33 @@
 
             if (td.tagName == "TD") {
 
-
                 var status = validStatus(status_ind);
+
+                if (event.type == "click") {
+                    event.preventDefault();
+                }
 
                 if (event.type == "dragstart") {
 
                     event.dataTransfer.dropEffect = "copy";
                     var colorbox = document.createElement("div");
                     colorbox.id = "drag-colorbox";
-                    // colorbox.classList.add("colorbox");
-                    // colorbox.style.width = "40px";
-                    // colorbox.style.height = "40px";
+
                     colorbox.classList.add("status" + status);
-                    // colorbox.style.border = "1px solid black";
-                    // colorbox.style.borderRadius = "10px";
+
                     document.body.appendChild(colorbox);
                     event.dataTransfer.setData("text/plain", "");
                     event.dataTransfer.setDragImage(colorbox, 20, 20);
                 }
-                else {
-                    event.preventDefault();
+
+                if (event.type == "drop" || event.type == "dragenter") {
+                    // event.preventDefault();
                 }
 
                 if (event.type == "drop") {
                     document.getElementById("drag-colorbox").remove();
-                    console.log("removed");
+                    event.preventDefault();
+                    // console.log("removed");
                 }
 
                 var aMes = td.getAttribute("data-mes");
@@ -629,7 +631,7 @@
                             itd.setAttribute("data-dia", i);
                             itd.setAttribute("draggable", true);
 
-                            // itd.addEventListener("mousedown", setStatus , false);
+                            itd.addEventListener("click", setStatus , false);
                             itd.addEventListener("dragstart", setStatus, false);
                             itd.addEventListener("dragenter", setStatus, false);
                             itd.addEventListener("drop", setStatus, false);
