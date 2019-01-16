@@ -162,12 +162,12 @@
             /* position: fixed; */
             font-family: monospace;
             width: 900px;
-            margin: 1em auto;
+            margin: 2em auto;
             border: 1px solid #12100A;
             border-radius: 3px;
             /* left: 5px;
             top: 5px; */
-            padding: 10px;
+            padding: 8px;
         }
 
         #admin span {
@@ -209,6 +209,14 @@
             border-radius: 6px;
             cursor: pointer;
         }
+
+        #drag-colorbox {
+            width: 30px;
+            height: 30px;
+            border: 1px solid rgba(0,0,0,0.4);
+            border-radius: 15px;
+        }
+
     </style>
 
     <script>
@@ -452,11 +460,37 @@
             var td = this;
 
             if (td.tagName == "TD") {
-            
+                
+
+                var status = validStatus(status_ind);
+
+                if (event.type == "dragstart") {
+                    
+                    event.dataTransfer.dropEffect = "copy";
+                    var colorbox = document.createElement("div");
+                    colorbox.id = "drag-colorbox";
+                    // colorbox.classList.add("colorbox");
+                    // colorbox.style.width = "40px";
+                    // colorbox.style.height = "40px";
+                    colorbox.classList.add("status" + status);
+                    // colorbox.style.border = "1px solid black";
+                    // colorbox.style.borderRadius = "10px";
+                    document.body.appendChild(colorbox);
+                    event.dataTransfer.setData("text/plain", "");
+                    event.dataTransfer.setDragImage(colorbox, 20, 20);
+                }
+                else {
+                    event.preventDefault();
+                }
+
+                if (event.type == "drop") {
+                    document.getElementById("drag-colorbox").remove();
+                    console.log("removed");
+                }
+                
             var aMes = td.getAttribute("data-mes");
             var dia = td.getAttribute("data-dia");
-
-            var status = validStatus(status_ind);
+            
             //            console.log(td);
             var i;
             for (i = 0; i <= max_status; i++) {
@@ -466,7 +500,7 @@
 
             td.childNodes[1].innerText = textList[status];
 
-            console.log(typeof (dia));
+            // console.log(typeof (dia));
 
             for (m in infoCalendario) {
                 // console.log(infoCalendario[m]["mes"] == aMes);
@@ -593,8 +627,13 @@
 
                         itd.setAttribute("data-mes", info["mes"]);
                         itd.setAttribute("data-dia", i);
+                        itd.setAttribute("draggable", true);
 
-                        itd.addEventListener("click", setStatus , false);
+                        // itd.addEventListener("mousedown", setStatus , false);
+                        itd.addEventListener("dragstart", setStatus , false);
+                        itd.addEventListener("dragenter", setStatus , false);
+                        itd.addEventListener("drop", setStatus, false);
+                        itd.addEventListener("dragover", function(e) {e.preventDefault()}, false);
 
                         // itd.setAttribute("onclick", "setStatus(this, " + info["mes"] + "," + i + ");");
 
@@ -702,7 +741,6 @@
 
             reloadStorageTA();
 
-
         };
     </script>
 
@@ -711,8 +749,6 @@
 <body>
     <div id="admin">
         <h1>Panel de administración</h1>
-        <!-- <p><a class="boton">Añadir mes</a></p> -->
-        <!-- <p><a class="boton">Quitar mes</a></p> -->
         <span>
             <textarea id="storage_content" rows="5" onclick=""></textarea>
             <a class="boton" onclick="copyStorageTA(); Highlight(this,'#C22')">Copiar</a>
@@ -740,7 +776,6 @@
         <div class="legbox status3" onclick="setStatusInd(3,this)">Festivo</div>
         <div class="legbox status4" onclick="setStatusInd(4,this)">Periodo crítico</div>
     </div>
-
 
 </body>
 
