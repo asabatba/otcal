@@ -31,6 +31,7 @@
             /*text-align: center;*/
             cursor: pointer;
             vertical-align: top;
+            transition: ease 800ms all;
         }
 
         .calendar td.empty {
@@ -443,9 +444,19 @@
 
         }
 
-        function setStatus(td, aMes, dia) {
+        function setStatus(event/*td, aMes, dia*/) {
 
-            status = validStatus(status_ind);
+            // console.log(event);
+
+            // var td = event.target;
+            var td = this;
+
+            if (td.tagName == "TD") {
+            
+            var aMes = td.getAttribute("data-mes");
+            var dia = td.getAttribute("data-dia");
+
+            var status = validStatus(status_ind);
             //            console.log(td);
             var i;
             for (i = 0; i <= max_status; i++) {
@@ -465,24 +476,9 @@
                     break;
                 }
             }
+            }
 
         }
-
-        //        DayCell.prototype.setStatus = function(status) {
-        //            // var status = this.nextStatus;
-        //            if (status >= -1 && status <= 5) {
-        //                this.status = status;
-        //            } else {
-        //                console.error("Tried to assign non-valid status " + status + " to DayCell object.");
-        //                this.status = 0;
-        //            }
-        //            var i;
-        //            for (i = 0; i <= 5; i++) {
-        //                this.dom.classList.remove("status" + i);
-        //            }
-        //            this.dom.classList.add("status" + status);
-        //
-        //        }
 
         function dayToggle(ele) {
             console.log(ele);
@@ -595,7 +591,15 @@
                         itd.classList.add("status" + dayStatus[i]);
                         itd.innerHTML = '<p class="ndia">' + i + '</p>';
 
-                        itd.setAttribute("onclick", "setStatus(this, " + info["mes"] + "," + i + ");");
+                        itd.setAttribute("data-mes", info["mes"]);
+                        itd.setAttribute("data-dia", i);
+
+                        itd.addEventListener("click", setStatus , false);
+
+                        // itd.setAttribute("onclick", "setStatus(this, " + info["mes"] + "," + i + ");");
+
+                        // soporte de arrastrar?
+                        // itd.setAttribute("ondragover", "setStatus(this, " + info["mes"] + "," + i + ");");
 
                         ip = document.createElement("p");
                         ip.classList.add("texto");
@@ -603,10 +607,6 @@
                         itd.appendChild(ip);
                         cellArray[i] = new DayCell(i, itd, dayStatus[i]);
 
-                        // cellArray[i].nextStatus = dayStatus[i];
-                        //                        itd.addEventListener("click", function() {
-                        //                            cellArray[i].setStatus(dayStatus[i])
-                        //                        });
                     }
 
                 } else {
@@ -627,6 +627,8 @@
 
             // caldiv.insertAdjacentHTML('beforeend', htmlAdd);
             caldiv.appendChild(ele_table);
+
+
             }
 
             // return cellArray;
@@ -699,6 +701,7 @@
             reloadCalendar();
 
             reloadStorageTA();
+
 
         };
     </script>
