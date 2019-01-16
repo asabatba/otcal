@@ -188,6 +188,7 @@
             max-width: 98%;
             border: 1px solid #7E97C2;
             border-radius: 3px;
+            background-color: #fefefe;
         }
 
         #admin h1 {
@@ -295,9 +296,19 @@
         function importTAtoStorage() {
             var storageTA = document.getElementById("storage_content");
             // console.log(storageTA);
-            var content = storageTA.value;
-            console.log(content);
-            saveStorage(JSON.parse(content));
+            try {
+                var content = JSON.parse(storageTA.value);
+            }
+            catch(error) {
+                highlightBg(document.getElementById("storage_content"), '#fcc');
+                console.error("Se ha producido el siguiente error durante la importacion:\n"+error);
+                
+                return false;
+            }
+            infoCalendario = content;
+            // console.log(content);
+            saveStorage();
+            highlightBg(document.getElementById("storage_content"), '#cfc');
             // location.reload();
             reloadCalendar();
         }
@@ -388,6 +399,7 @@
 
             infoCalendario = new_infoCalendario;
             saveStorage();
+            highlightBg(document.getElementById("storage_content"), '#cfc');
             // location.reload();
             reloadCalendar();
 
@@ -683,9 +695,7 @@
                 caldiv.removeChild(caldiv.firstChild);
             }
 
-
             calBuilder();
-
 
             input_desde = document.getElementById("input_desde");
             input_hasta = document.getElementById("input_hasta");
@@ -698,7 +708,7 @@
             //     }
         }
 
-        var fecharandom = new Date();
+        // var fecharandom = new Date();
         //        infoCalendario = [{
         //            "mes": 201810,
         //            "dayStatus": new Array(31)
@@ -707,16 +717,13 @@
 
         var timeouts;
 
-        function Highlight(ele, newcolor) {
-            //            var ele = document.getElementById(eid);
+        function highlight(ele, newcolor) {
             var og = ele.style.borderColor;
-            //            console.log(ele.style.transition);
             if (ele.style.transition != "all 50ms ease 0s") {
                 setTimeout(function () {
 
                     ele.style.transition = "all 600ms ease-out";
                     ele.style.borderColor = og;
-                    //                    ele.style.borderColor = null;
                     setTimeout(function () {
                         ele.style.transition = null;
                     }, 2000);
@@ -725,14 +732,30 @@
 
                 ele.style.transition = "all 50ms";
                 ele.style.borderColor = newcolor;
-                //                ele.style.borderColor = "white";
             }
+        }
 
+        function highlightBg(ele, newcolor) {
+            var og = ele.style.backgroundColor;
+            if (ele.style.transition != "all 50ms ease 0s") {
+                setTimeout(function () {
+
+                    ele.style.transition = "all 800ms ease-out";
+                    ele.style.backgroundColor = og;
+                    setTimeout(function () {
+                        ele.style.transition = null;
+                    }, 1000);
+
+                }, 200);
+
+                ele.style.transition = "all 50ms";
+                ele.style.backgroundColor = newcolor;
+            }
         }
 
         function setStatusInd(new_status, box) {
             status_ind = new_status;
-            Highlight(box, "#BB2233");
+            highlight(box, "#BB2233");
         }
 
         window.onload = function () {
@@ -753,15 +776,15 @@
         <h1>Panel de administración</h1>
         <span>
             <textarea id="storage_content" rows="5" onclick=""></textarea>
-            <a class="boton" onclick="copyStorageTA(); Highlight(this,'#C22')">Copiar</a>
-            <a class="boton" onclick="importTAtoStorage(); Highlight(this,'#C22')">Importar</a>
+            <a class="boton" onclick="copyStorageTA(); highlight(this,'#C22')">Copiar</a>
+            <a class="boton" onclick="importTAtoStorage(); highlight(this,'#C22')">Importar</a>
         </span>
         <span>
             Desde <input id="input_desde" pattern="20[0-9]{2}(0[0-9]|1[0-2])" minlength="6" maxlength="6" type="text"
                 value="201901" size="6">
             hasta <input id="input_hasta" pattern="20[0-9]{2}(0[0-9]|1[0-2])" minlength="6" maxlength="6" type="text"
                 size="6" value="201912">
-            <a class="boton" onclick="setMonths() ; Highlight(this,'#C22')">Fijar meses</a>
+            <a class="boton" onclick="setMonths() ; highlight(this,'#C22')">Fijar meses</a>
             <a style="margin-left: 1em; color: #777">(formato: "AAAAMM")</a>
         </span>
     </div>
