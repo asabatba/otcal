@@ -12,6 +12,8 @@ body {
     padding: 5px;
     border: 1px solid #999;
     border-radius: 6px;
+    box-shadow: 0 6px 10px rgba(0, 0, 0, 0.2);
+
 }
 
 .calendar td {
@@ -149,6 +151,7 @@ div.status4 {
     margin-bottom: 12px;
     border-radius: 6px;
     cursor: pointer;
+    box-shadow: 0 4px 5px rgba(0, 0, 0, 0.2);
 }
 
 #admin {
@@ -162,6 +165,7 @@ div.status4 {
     /* left: 5px;
     top: 5px; */
     padding: 8px;
+    box-shadow: 0 6px 10px rgba(0, 0, 0, 0.2);
 }
 
 #admin span {
