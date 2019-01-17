@@ -265,7 +265,14 @@ function setStatus(event /*td, aMes, dia*/ ) {
             document.body.appendChild(colorbox);
             event.dataTransfer.setData("text/plain", "");
             event.dataTransfer.setDragImage(colorbox, 20, 20);
+        
         }
+        else {
+            while (document.getElementById("drag-colorbox")) {
+                document.getElementById("drag-colorbox").remove();
+            }
+        }
+            
 
         if (event.type == "drop" || event.type == "dragenter") {
             // event.preventDefault();
