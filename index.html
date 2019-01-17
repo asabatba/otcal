@@ -1,0 +1,45 @@
+<!doctype html>
+<html lang="es-ES">
+
+<head>
+    <meta charset="UTF-8">
+
+    <link href="estilo.css" rel="stylesheet" type="text/css" />
+    <script type="text/javascript" src="cal.js"></script>
+
+</head>
+
+<body>
+    <div id="admin">
+        <h1>Panel de administración</h1>
+        <span>
+            <textarea id="storage_content" rows="5" onclick=""></textarea>
+            <a class="boton" onclick="copyStorageTA(); highlight(this,'#C22')">Copiar</a>
+            <a class="boton" onclick="importTAtoStorage(); highlight(this,'#C22')">Importar</a>
+        </span>
+        <span>
+            Desde <input id="input_desde" pattern="20[0-9]{2}(0[0-9]|1[0-2])" minlength="6" maxlength="6" type="text"
+                value="201901" size="6">
+            hasta <input id="input_hasta" pattern="20[0-9]{2}(0[0-9]|1[0-2])" minlength="6" maxlength="6" type="text"
+                size="6" value="201912">
+            <a class="boton" onclick="setMonths() ; highlight(this,'#C22')">Fijar meses</a>
+            <a style="margin-left: 1em; color: #777">(formato: "AAAAMM")</a>
+        </span>
+    </div>
+
+    <div id="caldiv"></div>
+
+    <div id="legend">
+        <!--  NUEVO TIPO -->
+        <div class="legbox status0" onclick="setStatusInd(0,this)"></div>
+        <div class="legbox status1" onclick="setStatusInd(1,this)">Despliegue TEST</div>
+        <div class="legbox status2" onclick="setStatusInd(2,this)">IOP (Global)</div>
+        <div class="legbox status21" onclick="setStatusInd(21,this)">IOP (BPI)</div>
+        <div class="legbox status22" onclick="setStatusInd(22,this)">IOP (VDC+CCF)</div>
+        <div class="legbox status3" onclick="setStatusInd(3,this)">Festivo</div>
+        <div class="legbox status4" onclick="setStatusInd(4,this)">Periodo crítico</div>
+    </div>
+
+</body>
+
+</html>
