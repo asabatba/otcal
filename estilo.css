@@ -19,7 +19,6 @@ body {
 .calendar td {
     margin: 0;
     padding: 0;
-    background: #e8e8e8;
     /* border: 1px solid #c8c8c8; */
     border-radius: 5px;
     width: 100px;
@@ -38,45 +37,6 @@ body {
 .calendar th {
     text-align: center;
     height: 25px;
-}
-
-/* // NUEVO TIPO*/
-
-.calendar td.status0,
-div.status0 {
-    background: #e8e8e8;
-}
-
-.calendar td.status1,
-div.status1 {
-    background: rgb(190, 220, 190);
-}
-
-.calendar td.status2,
-div.status2 {
-    background: rgb(200, 165, 220);
-}
-
-/*BPI*/
-.calendar td.status21,
-div.status21 {
-    background: rgb(230, 130, 100);
-}
-
-/*VDC CCF*/
-.calendar td.status22,
-div.status22 {
-    background: rgb(150, 180, 250);
-}
-
-.calendar td.status3,
-div.status3 {
-    background: rgb(250, 210, 180);
-}
-
-.calendar td.status4,
-div.status4 {
-    background: rgb(230, 170, 170);
 }
 
 
@@ -141,7 +101,7 @@ div.status4 {
 .legbox {
     width: 100px;
     height: 60px;
-    background: #c8c8c8;
+    /* background: #c8c8c8; */
 
     border-width: 1px;
     border-color: #FFF;
@@ -151,7 +111,7 @@ div.status4 {
     margin-bottom: 12px;
     border-radius: 6px;
     cursor: pointer;
-    box-shadow: 0 4px 5px rgba(0, 0, 0, 0.2);
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
 }
 
 #admin {

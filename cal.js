@@ -265,14 +265,13 @@ function setStatus(event /*td, aMes, dia*/ ) {
             document.body.appendChild(colorbox);
             event.dataTransfer.setData("text/plain", "");
             event.dataTransfer.setDragImage(colorbox, 20, 20);
-        
-        }
-        else {
+
+        } else {
             while (document.getElementById("drag-colorbox")) {
                 document.getElementById("drag-colorbox").remove();
             }
         }
-            
+
 
         if (event.type == "drop" || event.type == "dragenter") {
             // event.preventDefault();
@@ -348,16 +347,6 @@ function calBuilder() {
         //            var fechaMes = info["mes"];
         var fechaShort = dateToYYYYMM(fechaMes);
         var dayStatus = info["dayStatus"];
-
-        // NUEVO TIPO
-        textList = new Array();
-        textList[0] = "";
-        textList[1] = "Despliegue TEST (12:00)";
-        textList[2] = "IOP de VDC + CCF + BPI (18:00)";
-        textList[21] = "IOP de BPI (18:00)";
-        textList[22] = "IOP de VDC + CCF (18:00)";
-        textList[3] = "Festivo";
-        textList[4] = "Periodo crítico";
 
 
         var cellArray = new Array();

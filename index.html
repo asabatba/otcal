@@ -5,6 +5,58 @@
     <meta charset="UTF-8">
 
     <link href="estilo.css" rel="stylesheet" type="text/css" />
+
+    <style>
+
+        /* COLORES */
+
+/*COLOR ESTANDAR*/
+.status0 {
+background: #e8e8e8;
+}
+
+/*TEST*/
+.status1 {
+background: rgb(190, 220, 190);
+}
+
+.status2 {
+background: rgb(200, 165, 220);
+}
+
+/*BPI*/
+.status21 {
+background: rgb(230, 130, 100);
+}
+
+/*VDC CCF*/
+.status22 {
+background: rgb(150, 180, 250);
+}
+
+/*FESTIVO*/
+.status3 {
+background: rgb(250, 210, 180);
+}
+
+/*PERIODO CRITICO*/
+.status4 {
+background: rgb(230, 170, 170);
+}
+
+    </style>
+
+    <script>
+        // TEXTOS PARA EL CALENDARIO
+        textList = new Array();
+        textList[0] = "";
+        textList[1] = "Despliegue TEST (12:00)";
+        textList[2] = "IOP de VDC + CCF + BPI (18:00)";
+        textList[21] = "IOP de BPI (18:00)";
+        textList[22] = "IOP de VDC + CCF (18:00)";
+        textList[3] = "Festivo";
+        textList[4] = "Periodo crítico";
+    </script>
     <script type="text/javascript" src="cal.js"></script>
 
 </head>
@@ -30,7 +82,7 @@
     <div id="caldiv"></div>
 
     <div id="legend">
-        <!--  NUEVO TIPO -->
+        <!--  LEYENDA DEL CALENDARIO -->
         <div class="legbox status0" onclick="setStatusInd(0,this)"></div>
         <div class="legbox status1" onclick="setStatusInd(1,this)">Despliegue TEST</div>
         <div class="legbox status2" onclick="setStatusInd(2,this)">IOP (Global)</div>
