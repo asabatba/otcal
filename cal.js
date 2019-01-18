@@ -278,7 +278,7 @@ function setStatus(event /*td, aMes, dia*/ ) {
         }
 
         if (event.type == "drop") {
-            document.getElementById("drag-colorbox").remove();
+            // document.getElementById("drag-colorbox").remove();
             event.preventDefault();
             // console.log("removed");
         }
