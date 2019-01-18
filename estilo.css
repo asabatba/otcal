@@ -26,7 +26,7 @@ body {
     /*text-align: center;*/
     cursor: pointer;
     vertical-align: top;
-    transition: ease 800ms all;
+    transition: ease-out 300ms all;
 }
 
 .calendar td.empty {
@@ -99,8 +99,8 @@ body {
 }
 
 .legbox {
-    width: 100px;
-    height: 60px;
+    width: 90px;
+    height: 50px;
     /* background: #c8c8c8; */
 
     border-width: 1px;
