@@ -1,3 +1,5 @@
+/*jshint esversion: 6 */
+
 status_ind = 0; // global indicador estado
 max_status = 50; // estado con el numero mas alto
 var infoCalendario;
@@ -9,7 +11,7 @@ function initStorage() {
         //                "dayStatus": (new Array(32)).fill(0)
         //            }];
 
-        infoCalendario = new Array();
+        infoCalendario = [];
         /*
         
     var i;
@@ -45,8 +47,8 @@ function cleanInfo() {
 
     today = new Date();
 
-    for (i in infoCalendario) {
-        var diff = parseYYYYMM(infoCalendario[i]["mes"]) - today;
+    for (var i in infoCalendario) {
+        var diff = parseYYYYMM(infoCalendario[i].mes) - today;
         if (diff < -31 * 24 * 3600 * 1000) {
             infoCalendario.splice(0, 1);
         }
@@ -72,14 +74,14 @@ function importTAtoStorage() {
     var storageTA = document.getElementById("storage_content");
     // console.log(storageTA);
     try {
-        var content = JSON.parse(storageTA.value);
+        infoCalendario = JSON.parse(storageTA.value);
     } catch (error) {
         highlightBg(document.getElementById("storage_content"), '#fcc');
         console.error("Se ha producido el siguiente error durante la importacion:\n" + error);
 
         return false;
     }
-    infoCalendario = content;
+    //  = content;
     // console.log(content);
     saveStorage();
     highlightBg(document.getElementById("storage_content"), '#cfc');
@@ -133,14 +135,14 @@ function setMonths() {
     hasta = parseInt(input_hasta.value);
 
     // console.log( typeof(desde) );
-    console.log(desde + " -> " + hasta);
+    // console.log(desde + " -> " + hasta);
 
     if (desde > hasta) {
         console.error('Error: el mes del campo "desde" es posterior al de "hasta"');
         return;
     }
 
-    var new_infoCalendario = new Array();
+    var new_infoCalendario = [];
     var actual = desde;
     var idx = 0;
     // for (i = 0; i <  hasta-desde+1 ; i++) {
@@ -154,15 +156,15 @@ function setMonths() {
 
         // new_infoCalendario[idx]["mes"] = desde+i;
         for (j = 0; j < infoCalendario.length; j++) {
-            if (infoCalendario[j]["mes"] == new_infoCalendario[idx]["mes"]) {
-                new_infoCalendario[idx]["dayStatus"] = infoCalendario[j]["dayStatus"];
+            if (infoCalendario[j].mes == new_infoCalendario[idx].mes) {
+                new_infoCalendario[idx].dayStatus = infoCalendario[j].dayStatus;
                 break;
             }
         }
         // console.log("dayStatus" in new_infoCalendario[i]);
 
         if (!("dayStatus" in new_infoCalendario[idx])) {
-            new_infoCalendario[idx]["dayStatus"] = (new Array(32)).fill(0);
+            new_infoCalendario[idx].dayStatus = (new Array(32)).fill(0);
         }
 
         // new_infoCalendario[i]["dayStatus"] = (new Array(32)).fill(0);
@@ -188,7 +190,7 @@ Number.prototype.colIncrease = function () {
         default:
             return (this.valueOf() + 1);
     }
-}
+};
 
 function daysInMonth(iMonth, iYear) { // mes de 0 a 11
     return 32 - new Date(iYear, iMonth, 32).getDate();
@@ -237,7 +239,7 @@ var DayCell = function (diames, td = null, text = null, status = 0) {
     //                setStatus(e)
     //            });
 
-}
+};
 
 function setStatus(event /*td, aMes, dia*/ ) {
 
@@ -297,10 +299,10 @@ function setStatus(event /*td, aMes, dia*/ ) {
 
         // console.log(typeof (dia));
 
-        for (m in infoCalendario) {
+        for (var m in infoCalendario) {
             // console.log(infoCalendario[m]["mes"] == aMes);
-            if (infoCalendario[m]["mes"] == aMes) {
-                infoCalendario[m]["dayStatus"][dia] = Number(status);
+            if (infoCalendario[m].mes == aMes) {
+                infoCalendario[m].dayStatus[dia] = Number(status);
                 queueUpload(aMes);
                 break;
             }
@@ -341,15 +343,15 @@ function parseYYYYMM(intDate) {
 
 function calBuilder() {
 
-    for (i_c in infoCalendario) {
+    for (var i_c in infoCalendario) {
         var info = infoCalendario[i_c];
-        var fechaMes = parseYYYYMM(info["mes"]);
+        var fechaMes = parseYYYYMM(info.mes);
         //            var fechaMes = info["mes"];
         var fechaShort = dateToYYYYMM(fechaMes);
-        var dayStatus = info["dayStatus"];
+        var dayStatus = info.dayStatus;
 
 
-        var cellArray = new Array();
+        var cellArray = [];
 
         fechaMes.setDate(1);
         var caldiv = document.getElementById("caldiv");
@@ -374,7 +376,7 @@ function calBuilder() {
         itr.appendChild(ith);
 
 
-        ele_table.appendChild(itr)
+        ele_table.appendChild(itr);
 
         // htmlAdd += '<tr><th>L</th><th>M</th><th>X</th><th>J</th><th>V</th><th>S</th><th>D</th></tr>';
         itr = document.createElement("tr");
@@ -410,7 +412,7 @@ function calBuilder() {
                     itd.classList.add("status" + dayStatus[i]);
                     itd.innerHTML = '<p class="ndia">' + i + '</p>';
 
-                    itd.setAttribute("data-mes", info["mes"]);
+                    itd.setAttribute("data-mes", info.mes);
                     itd.setAttribute("data-dia", i);
                     itd.setAttribute("draggable", true);
 
@@ -419,7 +421,7 @@ function calBuilder() {
                     itd.addEventListener("dragenter", setStatus, false);
                     itd.addEventListener("drop", setStatus, false);
                     itd.addEventListener("dragover", function (e) {
-                        e.preventDefault()
+                        e.preventDefault();
                     }, false);
 
                     // itd.setAttribute("onclick", "setStatus(this, " + info["mes"] + "," + i + ");");
@@ -473,8 +475,8 @@ function reloadCalendar() {
     input_desde = document.getElementById("input_desde");
     input_hasta = document.getElementById("input_hasta");
 
-    input_desde.value = infoCalendario[0]["mes"];
-    input_hasta.value = infoCalendario[infoCalendario.length - 1]["mes"];
+    input_desde.value = infoCalendario[0].mes;
+    input_hasta.value = infoCalendario[infoCalendario.length - 1].mes;
 
     // for (i in infoCalendario) {
     //         calBuilder(infoCalendario[i]);
